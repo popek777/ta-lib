@@ -1,0 +1,7 @@
+function! s:FBuildTalib(build_type)
+  cgetexpr system('make -j 12 -C build/' . a:build_type)
+  copen
+endfunction
+
+command! -nargs=0 BuildTalib :call s:FBuildTalib('RelWithDebInfo')
+nnoremap <F7> :BuildTalib<CR>
