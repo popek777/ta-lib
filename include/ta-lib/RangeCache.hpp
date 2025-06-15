@@ -8,10 +8,9 @@ class RangeCache {
 public:
   RangeCache(std::size_t size);
 
-  // return true if range is fully filled
-  bool push(double v);
-
-  double front() const;
+  // return firt element of a range (since it will be replaced with pushed value) 
+  // and bool indicating if range is filled
+  std::pair<double, bool> push(double v);
 
 private:
   std::vector<double> buffer;

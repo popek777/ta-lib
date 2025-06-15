@@ -13,13 +13,13 @@ SMA::SMA(uint32_t period)
 std::optional<double> SMA::nextVal(double v)
 {
   runningSum += v;
-  bool filled = inputCache.push(v);
+  auto [front, filled] = inputCache.push(v);
 
   if (!filled) {
     return {};
   }
 
-  runningSum -= inputCache.front();
+  runningSum -= front;
   return runningSum / period;
 }
 
