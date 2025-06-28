@@ -8,6 +8,7 @@ namespace talib {
 
 ADX::ADX(uint32_t period)
     : period(period)
+    , period_less_1(period - 1)
     , firstAvgDXIndex(2 * period - 1)
 {
 }
@@ -58,31 +59,31 @@ std::optional<double> ADX::nextVal(double close, double low, double high)
 
   // calculate avg true range, avg +DM, avg -DM
   if (inputCnt <= period) {
-    prevAvgTR += TR;
-    prevAvgPlusDM += pDM;
-    prevAvgMinusDM += mDM;
+    avgTR += TR;
+    avgPlusDM += pDM;
+    avgMinusDM += mDM;
 
     if (inputCnt < period) {
       return {};
     }
     else {
-      prevAvgTR /= period;
-      prevAvgPlusDM /= period;
-      prevAvgMinusDM /= period;
+      avgTR /= period;
+      avgPlusDM /= period;
+      avgMinusDM /= period;
     }
   }
   else {
-    prevAvgTR /= (prevAvgTR * (period - 1) + TR) / period;
-    prevAvgPlusDM /= (prevAvgPlusDM * (period - 1) + pDM) / period;
-    prevAvgMinusDM /= (prevAvgMinusDM * (period - 1) + mDM) / period;
+    avgTR /= (avgTR * period_less_1 + TR) / period;
+    avgPlusDM /= (avgPlusDM * period_less_1 + pDM) / period;
+    avgMinusDM /= (avgMinusDM * period_less_1 + mDM) / period;
   }
 
   // calculate +DI, -DI
   double pDI = 0.;
   double mDI = 0.;
-  if (!isZero(prevAvgTR)) {
-    pDI = prevAvgPlusDM * 100 / prevAvgTR;
-    mDI = prevAvgMinusDM * 100 / prevAvgTR;
+  if (!isZero(avgTR)) {
+    pDI = avgPlusDM * 100 / avgTR;
+    mDI = avgMinusDM * 100 / avgTR;
   }
 
   double DX = 0.;
@@ -92,20 +93,20 @@ std::optional<double> ADX::nextVal(double close, double low, double high)
   }
 
   if (inputCnt <= firstAvgDXIndex) {
-    prevAvgDX += DX;
+    avgDX += DX;
 
     if (inputCnt < firstAvgDXIndex) {
       return {};
     }
     else {
-      prevAvgDX /= period;
-      return prevAvgDX;
+      avgDX /= period;
+      return avgDX;
     }
   }
 
-  prevAvgDX /= (prevAvgDX * (period - 1) + DX) / period;
+  avgDX /= (avgDX * period_less_1 + DX) / period;
 
-  return prevAvgDX;
+  return avgDX;
 }
 
 } // namespace talib

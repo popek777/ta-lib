@@ -13,16 +13,17 @@ public:
 
 private:
   uint32_t period{0};
+  uint32_t period_less_1{0};
   uint32_t firstAvgDXIndex{0};
 
   double prevClose{0.};
   double prevLow{0.};
   double prevHigh{0.};
 
-  double prevAvgTR{0.};
-  double prevAvgPlusDM{0.};
-  double prevAvgMinusDM{0.};
-  double prevAvgDX{0.};
+  double avgTR{0.};
+  double avgPlusDM{0.};
+  double avgMinusDM{0.};
+  double avgDX{0.};
 
   uint32_t inputCnt{0};
 };
