@@ -27,7 +27,15 @@ std::optional<double> ADX::nextVal(double close, double low, double high)
   }
 
   // claculate true range
-  double TR = std::max({high - low, std::abs(high - prevClose), std::abs(low - prevClose)});
+  double TR = high - low;
+  double TRhc = std::abs(high - prevClose);
+  if (TRhc > TR) {
+    TR = TRhc;
+  }
+  double TRlc = std::abs(low - prevClose);
+  if (TRlc > TR) {
+    TR = TRlc;
+  }
 
   // claculate direction movement (+DM, -DM)
   double pDM = high - prevHigh;
