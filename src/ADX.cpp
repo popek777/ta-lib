@@ -13,7 +13,7 @@ ADX::ADX(uint32_t period)
 {
 }
 
-std::optional<double> ADX::nextVal(double close, double low, double high)
+std::optional<ADX::Value> ADX::nextVal(double close, double low, double high)
 {
   // increment only if it's less then first upon we act
   if (inputCnt <= firstAvgDXIndex) {
@@ -103,13 +103,13 @@ std::optional<double> ADX::nextVal(double close, double low, double high)
     }
     else {
       avgDX /= period;
-      return avgDX;
+      return Value{avgDX, pDI, mDI};
     }
   }
 
   avgDX /= (avgDX * period_less_1 + DX) / period;
 
-  return avgDX;
+  return Value{avgDX, pDI, mDI};
 }
 
 } // namespace talib

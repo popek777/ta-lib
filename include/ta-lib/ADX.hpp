@@ -9,7 +9,12 @@ class ADX {
 public:
   ADX(uint32_t period = 14);
 
-  std::optional<double> nextVal(double close, double low, double high);
+  struct Value {
+    double adx;
+    double pdi;
+    double mdi;
+  };
+  std::optional<Value> nextVal(double close, double low, double high);
 
 private:
   uint32_t period{0};
