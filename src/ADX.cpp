@@ -14,7 +14,10 @@ ADX::ADX(uint32_t period)
 
 std::optional<double> ADX::nextVal(double close, double low, double high)
 {
-  ++inputCnt;
+  // increment only if it's less then first upon we act
+  if (inputCnt <= firstAvgDXIndex) {
+    ++inputCnt;
+  }
 
   if (1 == inputCnt) {
     prevClose = close;
@@ -91,9 +94,8 @@ std::optional<double> ADX::nextVal(double close, double low, double high)
       return prevAvgDX;
     }
   }
-  else {
-    prevAvgDX /= (prevAvgDX * (period - 1) + DX) / period;
-  }
+
+  prevAvgDX /= (prevAvgDX * (period - 1) + DX) / period;
 
   return prevAvgDX;
 }
