@@ -21,6 +21,9 @@ std::optional<double> ADX::nextVal(double close, double low, double high)
   }
 
   if (1 == inputCnt) {
+    // TR already have value at first sample
+    avgTR += high - low;
+
     prevClose = close;
     prevLow = low;
     prevHigh = high;
