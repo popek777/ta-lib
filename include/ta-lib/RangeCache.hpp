@@ -4,17 +4,36 @@
 
 namespace talib {
 
-class RangeCache {
+template<typename T>
+class RangeCacheT {
 public:
-  RangeCache(std::size_t size);
+  RangeCacheT(std::size_t size) { buffer.reserve(size); }
 
-  // return firt element of a range (since it will be replaced with pushed value) 
+  // return first element of a range (since it will be replaced with pushed value)
   // and bool indicating if range is filled
-  std::pair<double, bool> push(double v);
+  std::pair<T, bool> push(T v)
+  {
+    if (buffer.size() < buffer.capacity()) {
+      ++idx;
+      buffer.push_back(v);
+      // front (is mimicked to 0 even if buffer is filled)
+      return {T{}, buffer.size() == buffer.capacity()};
+    }
+
+    idx = (idx + 1) % buffer.size();
+
+    // since front will be removed let's return it to a caller
+    auto front = buffer[idx];
+    buffer[idx] = v;
+
+    return {front, true};
+  }
 
 private:
-  std::vector<double> buffer;
+  std::vector<T> buffer;
   std::size_t idx{static_cast<std::size_t>(-1)};
 };
+
+using RangeCache = RangeCacheT<double>;
 
 } // namespace talib

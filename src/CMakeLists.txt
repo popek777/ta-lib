@@ -5,6 +5,7 @@ add_library(ta-lib SHARED
   MACD.cpp
   RSI.cpp
   ADX.cpp
+  StdDev.cpp
   RangeCache.cpp
   TaLibUtils.cpp
   )
