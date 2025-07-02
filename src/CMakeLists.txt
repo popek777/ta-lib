@@ -7,6 +7,7 @@ add_library(ta-lib SHARED
   ADX.cpp
   StdDev.cpp
   Variance.cpp
+  Covariance.cpp
   RangeCache.cpp
   TaLibUtils.cpp
   )
