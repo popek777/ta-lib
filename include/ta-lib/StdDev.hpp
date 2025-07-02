@@ -1,6 +1,6 @@
 #pragma once
 
-#include <ta-lib/RangeCache.hpp>
+#include <ta-lib/Variance.hpp>
 
 #include <optional>
 #include <cstdint>
@@ -14,16 +14,7 @@ public:
   std::optional<double> nextVal(double val);
 
 private:
-  uint32_t period{0};
-
-  double runningSum{0.};
-  double runningSquareSum{0.};
-
-  struct CacheVal {
-    double val{0.};
-    double squareVal{0.};
-  };
-  RangeCacheT<CacheVal> inputCache;
+  Variance var;
 };
 
 } // namespace talib

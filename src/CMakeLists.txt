@@ -6,6 +6,7 @@ add_library(ta-lib SHARED
   RSI.cpp
   ADX.cpp
   StdDev.cpp
+  Variance.cpp
   RangeCache.cpp
   TaLibUtils.cpp
   )
