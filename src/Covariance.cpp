@@ -29,7 +29,7 @@ std::optional<double> Covariance::nextVal(double x, double y)
   runningYSum -= front.y;
   runningXYSum -= front.xy;
 
-  // covariance equation:
+  // (population) covariance equation:
   // 1/N * sum(x*y) - (1/N * sum(x)) * (1/N * sum(y)) -> 1/N * (sum(x*y) - 1/N *(sum(x) * sum(y)))
   return (runningXYSum - (runningXSum * runningYSum) / period) / period;
 }
