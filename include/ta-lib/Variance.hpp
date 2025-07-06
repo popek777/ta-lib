@@ -13,6 +13,12 @@ public:
 
   std::optional<double> nextVal(double val);
 
+  struct ValueCtx {
+    std::optional<double> var{};
+    double mean{0.};
+  };
+  ValueCtx calcNext(double val);
+
 private:
   uint32_t period{0};
 

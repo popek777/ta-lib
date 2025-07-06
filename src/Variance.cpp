@@ -11,9 +11,7 @@ Variance::Variance(uint32_t period)
 {
 }
 
-// return value if more then period sampels had been observer
-// or null if less then period samples had bee observed so far
-std::optional<double> Variance::nextVal(double v)
+Variance::ValueCtx Variance::calcNext(double v)
 {
   runningSum += v;
 
@@ -23,7 +21,7 @@ std::optional<double> Variance::nextVal(double v)
   auto [front, filled] = inputCache.push({v, squareVal});
 
   if (!filled) {
-    return {};
+    return {{}, 0.};
   }
 
   runningSum -= front.val;
@@ -32,12 +30,10 @@ std::optional<double> Variance::nextVal(double v)
   double mean = runningSum / period;
   double variance = (runningSquareSum / period) - (mean * mean);
 
-  // in case of  tiny negative errors
-  if (isZeroOrNeg(variance)) {
-    return 0.;
-  }
-
-  return variance;
+  return {isZeroOrNeg(variance) ? 0. : variance, // in case of  tiny negative errors
+          mean};
 }
+
+std::optional<double> Variance::nextVal(double v) { return calcNext(v).var; }
 
 } // namespace talib

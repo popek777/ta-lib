@@ -13,6 +13,7 @@ StdDev::StdDev(uint32_t period)
 std::optional<double> StdDev::nextVal(double v)
 {
   auto variance = var.nextVal(v);
+
   if (!variance.has_value()) {
     return {};
   }
