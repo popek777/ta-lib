@@ -6,6 +6,7 @@ add_library(ta-lib SHARED
   RSI.cpp
   ADX.cpp
   Diff.cpp
+  PctChange.cpp
   Shift.cpp
   StdDev.cpp
   Variance.cpp
