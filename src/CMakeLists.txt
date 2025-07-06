@@ -13,6 +13,7 @@ add_library(ta-lib SHARED
   Covariance.cpp
   Zscore.cpp
   Correlation.cpp
+  Quantile.cpp
   RangeCache.cpp
   TaLibUtils.cpp
   )
