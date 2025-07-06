@@ -5,6 +5,8 @@ add_library(ta-lib SHARED
   MACD.cpp
   RSI.cpp
   ADX.cpp
+  Diff.cpp
+  Shift.cpp
   StdDev.cpp
   Variance.cpp
   Covariance.cpp

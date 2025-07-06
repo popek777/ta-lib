@@ -4,20 +4,21 @@
 
 namespace talib {
 
-template<typename T>
+template<typename T, typename ReturnT = T>
 class RangeCacheT {
 public:
   RangeCacheT(std::size_t size) { buffer.reserve(size); }
 
   // return first element of a range (since it will be replaced with pushed value)
   // and bool indicating if range is filled
-  std::pair<T, bool> push(T v)
+  std::pair<ReturnT, bool> push(T v)
   {
     if (buffer.size() < buffer.capacity()) {
       ++idx;
       buffer.push_back(v);
+
       // front (is mimicked to 0 even if buffer is filled)
-      return {T{}, buffer.size() == buffer.capacity()};
+      return {ReturnT{}, buffer.size() == buffer.capacity()};
     }
 
     idx = (idx + 1) % buffer.size();
