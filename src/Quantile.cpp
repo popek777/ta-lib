@@ -11,8 +11,8 @@ Quantile::Quantile(double q, uint32_t period)
     , j(static_cast<uint32_t>(std::ceil(k)))
     , fraction(k - i)
     , inputCache(period)
+    , window(period)
 {
-  window.reserve(period);
 }
 
 std::optional<double> Quantile::nextVal(double v)
@@ -20,14 +20,11 @@ std::optional<double> Quantile::nextVal(double v)
   auto [front, filled] = inputCache.push(v);
 
   if (!filled) {
-    window.insert(std::lower_bound(window.begin(), window.end(), v), v);
+    window.push({}, v);
     return {};
   }
 
-  if (front.has_value()) {
-    window.erase(std::find(window.begin(), window.end(), v));
-  }
-  window.insert(std::lower_bound(window.begin(), window.end(), v), v);
+  window.push(front, v);
 
   double xi = window[i];
   if (i == j) {

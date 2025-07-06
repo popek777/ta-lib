@@ -14,6 +14,8 @@ add_library(ta-lib SHARED
   Zscore.cpp
   Correlation.cpp
   Quantile.cpp
+  Median.cpp
   RangeCache.cpp
+  SortedWindow.cpp
   TaLibUtils.cpp
   )
