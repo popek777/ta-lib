@@ -26,7 +26,7 @@ std::optional<double> ChaikinMoneyFlow::nextVal(double h, double l, double c, do
   volSum -= front.vol;
   mfvSum -= front.mfv;
 
-  return mfvSum / volSum;
+  return !isZero(volSum) ? mfvSum / volSum : 0.;
 }
 
 } // namespace talib
