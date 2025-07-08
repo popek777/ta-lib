@@ -57,7 +57,7 @@ std::optional<double> ATR::nextVal(double close, double low, double high)
     return avgTR;
   }
 
-  avgTR /= (avgTR * period_less_1 + TR) / period;
+  avgTR = (avgTR * period_less_1 + TR) / period;
   return avgTR;
 }
 

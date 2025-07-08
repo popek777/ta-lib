@@ -76,9 +76,9 @@ std::optional<ADX::Value> ADX::nextVal(double close, double low, double high)
     }
   }
   else {
-    avgTR /= (avgTR * period_less_1 + TR) / period;
-    avgPlusDM /= (avgPlusDM * period_less_1 + pDM) / period;
-    avgMinusDM /= (avgMinusDM * period_less_1 + mDM) / period;
+    avgTR = (avgTR * period_less_1 + TR) / period;
+    avgPlusDM = (avgPlusDM * period_less_1 + pDM) / period;
+    avgMinusDM = (avgMinusDM * period_less_1 + mDM) / period;
   }
 
   // calculate +DI, -DI
