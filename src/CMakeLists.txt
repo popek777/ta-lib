@@ -15,6 +15,7 @@ add_library(ta-lib SHARED
   Correlation.cpp
   Quantile.cpp
   Median.cpp
+  ChaikinMoneyFlow.cpp
   RangeCache.cpp
   SortedWindow.cpp
   TaLibUtils.cpp
