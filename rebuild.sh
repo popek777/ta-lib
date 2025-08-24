@@ -1,6 +1,7 @@
 #/bin/bash
 
 build_type='RelWithDebInfo'
+#build_type='Debug'
 
 build_dir=build/$build_type
 

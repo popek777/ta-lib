@@ -14,7 +14,3 @@ include_directories(
 
 add_subdirectory(src)
 
-set_target_properties(ta-lib PROPERTIES
-    RUNTIME_OUTPUT_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/bin"
-    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/lib"
-)
